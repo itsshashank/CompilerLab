@@ -56,7 +56,7 @@ void print_e_closure(int i)
 {
     int j;
     printf("{");
-    if(e_closure[0][0]!=0)
+    if(e_closure[i][0]!=0)
         printf("q%d", e_closure[i][0]);
     for (j = 1; e_closure[i][j] != 0; j++)
         printf(",q%d", e_closure[i][j]);
