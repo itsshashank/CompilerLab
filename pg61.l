@@ -50,7 +50,7 @@ YACC PART:
 
     #include<stdio.h>
 
-    int valid=1;   
+    int valid=1;
 
 %}
 
@@ -60,21 +60,21 @@ YACC PART:
 
 start : id '=' s ';'
 
-s :     id x       
+s :     id x
 
-      | num x       
+      | num x
 
-      | '-' num x   
+      | '-' num x
 
-      | '(' s ')' x 
+      | '(' s ')' x
 
       ;
 
-x :     op s        
+x :     op s
 
-      | '-' s       
+      | '-' s
 
-      |             
+      |
 
       ;
 
@@ -111,3 +111,8 @@ int main()
 }
 
 
+1,2 1
+-1 2
+-1 -1#
+0
+2
