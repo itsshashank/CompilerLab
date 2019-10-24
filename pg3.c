@@ -38,6 +38,23 @@ void insert_trasit(int r, char c, int s)
     transition[r][j] = temp;
 }
 
+void insert_trasit_new(int r, char c, int s)
+{
+    int j;
+    struct node *temp;
+    j = isinput(c);
+    if (j == -1)
+    {
+        printf("error\n");
+        exit(0);
+    }
+    temp = (struct node *)malloc(sizeof(struct node));
+    temp->q = s;
+    temp->l = new_transition[r][j];
+    new_transition[r][j] = temp;
+}
+
+
 void findclosure(int x, int sta)
 {
     struct node *temp;
@@ -79,14 +96,12 @@ void insert2newt(){
         for(int j=0;j<noalpha-1;j++){
             new_transition[i][j]= transition[i][j];
         }
-        if(flag[i]==1){
-            int j=1;
-            while (e_closure[i][j]!=0) {
-                for(int k=0;k<noalpha-1 ;k++){
-                    insert_trasit(i, alphabet[k],e_closure[i][j]);
-                }
-                j++;
+        int j=1;
+        while (e_closure[i][j]!=0) {
+            for(int k=0;k<noalpha-1 ;k++){
+                insert_trasit_new(i, alphabet[k],e_closure[i][j]);
             }
+            j++;
         }
     }
 }
@@ -94,19 +109,25 @@ void insert2newt(){
 void print_new(){
     insert2newt();
     struct node *temp;
-    printf("\n NFA");
+    printf("\n NFA without E ");
     for(int i=1;i<=nostate;i++){
         printf("\n\t Q%d",i);
-        for(int j=0;j<noalpha;j++){
+        for(int j=0;j<noalpha-1;j++){
             printf("\n\t\t on %c :",alphabet[j]);
             temp = new_transition[i][j];
-            printf("%d",temp->q);
+            if(temp!=NULL){
+                printf("Q%d",temp->q);
+                temp = temp->l;
+            }
+            else
+                printf("NULL");
             while(temp!=NULL){
-                printf(",%d",temp->q);
+                printf(",Q%d",temp->q);
                 temp = temp-> l;
             }
         }
     }
+    printf("\n");
 }
 
 int main(int argc, char const *argv[])
