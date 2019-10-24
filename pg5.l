@@ -37,11 +37,19 @@ goto {printf("\n\t%s is a keyword",yytext);}
 \< |
 == |
 \> {if(!COMMENT) printf("\n\t%s is a RELATIONAL OPERATOR",yytext);}
+\+ |
+
+\- |
+
+\* |
+
+\/ {if(!COMMENT) printf("\n\t%s is a Arithmatic Operator",yytext);}
+
 %%
 int main(int argc, char **argv)
 {
 FILE *file;
-file=fopen("var.c","r");
+file=fopen("hello.c","r");
 if(!file)
 {
 printf("could not open the file");
